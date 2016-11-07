@@ -7,7 +7,7 @@ use Dixie\LaravelModelFuture\Models\Future;
 use Dixie\LaravelModelFuture\Contracts\ModelFuture;
 use Carbon\Carbon;
 
-class FuturePlan
+class FuturePlanner
 {
     protected $model;
 
@@ -27,7 +27,7 @@ class FuturePlan
 
     public function for(Carbon $futureDate)
     {
-        $data = json_encode($this->attributes);
+        $data = $this->attributes;
         $future = new Future();
 
         $future->fill([
@@ -38,6 +38,27 @@ class FuturePlan
         return $this->model
             ->futures()
             ->save($future);
+    }
+
+    public function anyPlansFor(Carbon $futureDate)
+    {
+        return (bool) $this->model->futures()
+            ->where('commit_at', $futureDate)
+            ->count();
+    }
+
+    public function getPlansFor(Carbon $futureDate)
+    {
+        return $this->model->futures()
+            ->where('commit_at', $futureDate)
+            ->get();
+    }
+
+    public function getPlansUntill(Carbon $futureDate)
+    {
+         return $this->model->futures()
+            ->where('commit_at', '<=', $futureDate)
+            ->get();
     }
 
 }

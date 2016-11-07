@@ -5,7 +5,7 @@ namespace Dixie\LaravelModelFuture\Traits;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Dixie\LaravelModelFuture\Models\Future;
-use Dixie\LaravelModelFuture\FuturePlan;
+use Dixie\LaravelModelFuture\FuturePlanner;
 
 trait HasFuture
 {
@@ -19,7 +19,7 @@ trait HasFuture
 
     public function future()
     {
-        return new FuturePlan($this);
+        return new FuturePlanner($this);
     }
 
 }

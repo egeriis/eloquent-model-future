@@ -10,7 +10,7 @@ use Dixie\LaravelModelFuture\Models\Future;
 use Dixie\LaravelModelFuture\Tests\TestCase;
 use Dixie\LaravelModelFuture\FuturePlan;
 use Dixie\LaravelModelFuture\Tests\User; use Dixie\LaravelModelFuture\Collections\FutureCollection; 
-class FutureTest extends TestCase
+class FuturePlannerTest extends TestCase
 {
 
     public function test_it_can_plan_a_future()
@@ -88,14 +88,5 @@ class FutureTest extends TestCase
 
         $this->assertInstanceOf(FutureCollection::class, $futurePlans);
         $this->assertCount(2, $futurePlans);
-        $this->assertEquals(
-            $futurePlans->after()->toArray(), 
-            array_merge($user->getAttributes(), [
-                'name' => 'John Doe',
-                'email' => 'jo.do@dixie.io',
-                'bio' => 'I am a developer at dixie.io',
-            ])
-        );
-
     }
 }

@@ -5,6 +5,7 @@ namespace Dixie\LaravelModelFuture\Tests\Collections;
 use Dixie\LaravelModelFuture\Tests\TestCase;
 use Carbon\Carbon;
 use Dixie\LaravelModelFuture\Collections\FutureCollection;
+use Dixie\LaravelModelFuture\Tests\User;
 
 class FutureCollectionTest extends TestCase
 {
@@ -31,9 +32,13 @@ class FutureCollectionTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $this->createFuturePlanFor($user, $tomorrow);
 
-        $this->assertEquals($user->futures->before()->toArray(), [
-            $user->getAttributes(),
-        ]);
+        $userBeforeFutures = $user->futures->before();
+
+        $this->assertCount(1, $userBeforeFutures);
+        $userBeforeFutures->each(function($userBefore) use ($user) {
+            $this->assertTrue($userBefore->is($user));
+            $this->assertInstanceOf(User::class, $userBefore);
+        });
     }
 
     public function test_it_can_show_how_the_model_will_look_after()
@@ -52,7 +57,7 @@ class FutureCollectionTest extends TestCase
         ], true);
 
         $this->assertEquals(
-            $user->futures->after()->toArray(),
+            $user->futures->after()->getAttributes(),
             array_merge($user->getAttributes(), [
                 'name' => $planForNextWeek->data['name'],
                 'email' => $planForNextWeek->data['email'],

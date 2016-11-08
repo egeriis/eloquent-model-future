@@ -9,14 +9,14 @@ class FutureCollection extends EloquentCollection
 {
     public function before()
     {
-        return $this->map(function($item) {
-            return $item->futureable->getAttributes();
-        });
+        return $this->transform(function($item) {
+            return $item->futureable;
+        });;
     }
 
     public function after()
     {
-        $model = $this->load('futureable')->first()->futureable;
+        $model = $this->first()->futureable;
 
         return $this->reduce(function($carry, $item) {
             return $carry->forceFill($item->data);

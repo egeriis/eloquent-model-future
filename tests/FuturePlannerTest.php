@@ -33,6 +33,23 @@ class FuturePlannerTest extends TestCase
             'email' => 'jo.do@dixie.io',
         ]);
     }
+    
+    public function test_it_can_assert_and_return_true_if_model_has_any_future_plans()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future = $this->createFuturePlanFor($user, $tomorrow);
+
+        $this->assertTrue($user->future()->hasAnyPlans());
+    }
+
+    public function test_it_can_assert_and_return_false_if_model_does_not_have_any_future_plans()
+    {
+        $user = $this->createUser();
+
+        $this->assertFalse($user->future()->hasAnyPlans());
+    }
 
     public function test_it_can_assert_if_any_future_plans_have_been_made()
     {
@@ -42,8 +59,8 @@ class FuturePlannerTest extends TestCase
 
         $future = $this->createFuturePlanFor($user, $tomorrow);
 
-        $hasPlansForTomorrow = $user->future()->anyPlansFor($tomorrow);
-        $hasPlansForNextWeek = $user->future()->anyPlansFor($nextWeek);
+        $hasPlansForTomorrow = $user->future()->hasAnyPlansFor($tomorrow);
+        $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($nextWeek);
 
         $this->assertTrue($hasPlansForTomorrow);
         $this->assertFalse($hasPlansForNextWeek);

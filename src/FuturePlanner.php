@@ -40,7 +40,12 @@ class FuturePlanner
             ->save($future);
     }
 
-    public function anyPlansFor(Carbon $futureDate)
+    public function hasAnyPlans()
+    {
+        return (bool) $this->model->has('futures')->count();
+    }
+
+    public function hasAnyPlansFor(Carbon $futureDate)
     {
         return (bool) $this->model->futures()
             ->where('commit_at', $futureDate)

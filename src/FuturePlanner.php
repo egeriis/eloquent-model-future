@@ -49,19 +49,27 @@ class FuturePlanner
 
     public function hasAnyPlansFor(Carbon $futureDate)
     {
-        return (bool) $this->futureQuery->where('commit_at', $futureDate)->count();
+        return (bool) $this->futureQuery->forDate($futureDate)->count();
+    }
+
+    public function hasAnyPlansUntil(Carbon $futureDate)
+    {
+        return (bool) $this->futureQuery->untilDate($futureDate)->count();
+    }
+
+    public function getPlans()
+    {
+        return $this->futureQuery->get();
     }
 
     public function getPlansFor(Carbon $futureDate)
     {
-        return $this->futureQuery->where('commit_at', $futureDate)->get();
+        return $this->futureQuery->forDate($futureDate)->get();
     }
 
     public function getPlansUntil(Carbon $futureDate)
     {
-         return $this->model->uncommittedFutures()
-            ->where('commit_at', '<=', $futureDate)
-            ->get();
+        return $this->futureQuery->untilDate($futureDate)->get();
     }
 
 }

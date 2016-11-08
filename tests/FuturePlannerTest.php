@@ -51,7 +51,7 @@ class FuturePlannerTest extends TestCase
         $this->assertFalse($user->future()->hasAnyPlans());
     }
 
-    public function test_it_can_assert_if_any_future_plans_have_been_made()
+    public function test_it_can_assert_if_it_has_any_future_plans_for_given_date()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -66,7 +66,38 @@ class FuturePlannerTest extends TestCase
         $this->assertFalse($hasPlansForNextWeek);
     }
 
-    public function test_it_can_get_future_plans_for_a_specific_day()
+    public function test_it_can_assert_if_it_has_any_future_plans_untill_given_date()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+        $nextWeek = Carbon::now()->addWeek();
+        $nextMonth = Carbon::now()->addWeek();
+
+        $future = $this->createFuturePlanFor($user, $nextWeek);
+        $future = $this->createFuturePlanFor($user, $nextMonth);
+
+        $hasPlansForTomorrow = $user->future()->hasAnyPlansUntil($tomorrow);
+        $hasPlansForNextMonth = $user->future()->hasAnyPlansUntil($nextMonth);
+
+        $this->assertFalse($hasPlansForTomorrow);
+        $this->assertTrue($hasPlansForNextMonth);
+    }
+
+    public function test_it_can_get_all_future_plans()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $future = $this->createFuturePlanFor($user, $tomorrow);
+
+        $futurePlans =  $user->future()->getPlans();
+
+        $this->assertInstanceOf(FutureCollection::class, $futurePlans);
+        $this->assertCount(2, $futurePlans);
+    }
+
+    public function test_it_can_get_future_plans_for_a_given_day()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -82,7 +113,7 @@ class FuturePlannerTest extends TestCase
         $this->assertCount(2, $futurePlans);
     }
 
-    public function test_it_can_get_all_future_plans_untill_a_day()
+    public function test_it_can_get_all_future_plans_untill_a_given_day()
     {
         $user = $this->createUser([
             'bio' => 'I am a developer at dixie.io',

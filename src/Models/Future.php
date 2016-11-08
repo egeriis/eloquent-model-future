@@ -5,6 +5,8 @@ namespace Dixie\LaravelModelFuture\Models;
 use Illuminate\Database\Eloquent\Model;
 use Dixie\LaravelModelFuture\Collections\FutureCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class Future extends Model
 {
@@ -29,14 +31,24 @@ class Future extends Model
         'commit_at', 'data', 'committed',
     ];
 
+    public function newCollection(array $models = [])
+    {
+        return new FutureCollection($models);
+    }
+
+    public function scopeForDate(Builder $query, Carbon $date)
+    {
+        return $query->where('commit_at', $date);
+    }
+
+    public function scopeUntilDate(Builder $query, Carbon $date)
+    {
+        return $query->where('commit_at', '<=', $date);
+    }
+
     public function futureable()
     {
         return $this->morphTo()
             ->with('futures');
-    }
-
-    public function newCollection(array $models = [])
-    {
-        return new FutureCollection($models);
     }
 }

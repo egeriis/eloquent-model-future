@@ -24,6 +24,11 @@ class Future extends Model
         'deleted_at',
     ];
 
+    protected $fillable = [
+        'futureable_id', 'futureable_type',
+        'commit_at', 'data', 'committed',
+    ];
+
     public function futureable()
     {
         return $this->morphTo()

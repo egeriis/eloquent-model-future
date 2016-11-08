@@ -17,6 +17,11 @@ trait HasFuture
         );
     }
 
+    public function uncommittedFutures()
+    {
+        return $this->futures()->whereNull('committed');
+    }
+
     public function future()
     {
         return new FuturePlanner($this);

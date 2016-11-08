@@ -33,7 +33,7 @@ class FuturePlannerTest extends TestCase
             'email' => 'jo.do@dixie.io',
         ]);
     }
-    
+
     public function test_it_can_assert_and_return_true_if_model_has_any_future_plans()
     {
         $user = $this->createUser();
@@ -105,5 +105,57 @@ class FuturePlannerTest extends TestCase
 
         $this->assertInstanceOf(FutureCollection::class, $futurePlans);
         $this->assertCount(2, $futurePlans);
+    }
+
+    public function test_it_does_not_include_committed_plans_in_collections()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+        $nextWeek = Carbon::now()->addWeek();
+
+        $future1 = $this->createFuturePlanFor($user, $tomorrow);
+        $future2 = $this->createFuturePlanFor($user, $tomorrow);
+        $future3 = $this->createFuturePlanFor($user, $nextWeek);
+
+        $future3->committed = Carbon::now();
+        $future3->save();
+
+        $futurePlansUntil = $user->future()->getPlansUntil($nextWeek);
+        $futurePlansFor = $user->future()->getPlansFor($nextWeek);
+
+        $this->assertCount(2, $futurePlansUntil);
+        $this->assertTrue($futurePlansUntil->first()->is($future1));
+        $this->assertTrue($futurePlansUntil->last()->is($future2));
+
+        $this->assertEmpty($futurePlansFor);
+    }
+
+    public function test_it_does_not_include_committed_future_plans_when_asserting_existence()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $future->update([
+            'committed' => Carbon::now(),
+        ]);
+
+        $hasAnyFuturePlans = $user->future()->hasAnyPlans();
+        $this->assertFalse($hasAnyFuturePlans);
+    }
+
+    public function test_it_does_not_include_committed_future_plans_when_asserting_existence_on_given_date()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $future->update([
+            'committed' => Carbon::now(),
+        ]);
+
+        $hasFuturePlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
+        $this->assertFalse($hasFuturePlansForNextWeek);
+
     }
 }

@@ -13,9 +13,12 @@ class FuturePlanner
 
     protected $attributes;
 
+    protected $futureQuery;
+
     public function __construct(ModelFuture $model)
     {
         $this->model = $model;
+        $this->futureQuery = $this->model->uncommittedFutures();
     }
 
     public function plan(array $attributes)
@@ -27,41 +30,36 @@ class FuturePlanner
 
     public function for(Carbon $futureDate)
     {
-        $data = $this->attributes;
-        $future = new Future();
-
-        $future->fill([
-            'data' => $data,
+        $future = new Future([
+            'data' => $this->attributes,
             'commit_at' => $futureDate,
         ]);
 
-        return $this->model
-            ->futures()
-            ->save($future);
+        $future->futureable()
+            ->associate($this->model)
+            ->save();
+
+        return $future;
     }
 
     public function hasAnyPlans()
     {
-        return (bool) $this->model->has('futures')->count();
+        return (bool) $this->futureQuery->count();
     }
 
     public function hasAnyPlansFor(Carbon $futureDate)
     {
-        return (bool) $this->model->futures()
-            ->where('commit_at', $futureDate)
-            ->count();
+        return (bool) $this->futureQuery->where('commit_at', $futureDate)->count();
     }
 
     public function getPlansFor(Carbon $futureDate)
     {
-        return $this->model->futures()
-            ->where('commit_at', $futureDate)
-            ->get();
+        return $this->futureQuery->where('commit_at', $futureDate)->get();
     }
 
     public function getPlansUntil(Carbon $futureDate)
     {
-         return $this->model->futures()
+         return $this->model->uncommittedFutures()
             ->where('commit_at', '<=', $futureDate)
             ->get();
     }

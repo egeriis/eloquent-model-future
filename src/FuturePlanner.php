@@ -42,21 +42,6 @@ class FuturePlanner
         return $future;
     }
 
-    public function hasAnyPlans()
-    {
-        return (bool) $this->getPlans()->count();
-    }
-
-    public function hasAnyPlansFor(Carbon $futureDate)
-    {
-        return (bool) $this->getPlansFor($futureDate)->count();
-    }
-
-    public function hasAnyPlansUntil(Carbon $futureDate)
-    {
-        return (bool) $this->getPlansUntil($futureDate)->count();
-    }
-
     public function getPlans()
     {
         return $this->futures->get();
@@ -70,6 +55,21 @@ class FuturePlanner
     public function getPlansUntil(Carbon $futureDate)
     {
         return $this->futures->untilDate($futureDate)->get();
+    }
+
+    public function hasAnyPlans()
+    {
+        return (bool) $this->getPlans()->count();
+    }
+
+    public function hasAnyPlansFor(Carbon $futureDate)
+    {
+        return (bool) $this->getPlansFor($futureDate)->count();
+    }
+
+    public function hasAnyPlansUntil(Carbon $futureDate)
+    {
+        return (bool) $this->getPlansUntil($futureDate)->count();
     }
 
 }

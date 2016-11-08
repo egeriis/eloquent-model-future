@@ -189,4 +189,26 @@ class FuturePlannerTest extends TestCase
         $this->assertFalse($hasFuturePlansForNextWeek);
 
     }
+
+    public function test_it_can_apply_future_plans_for_a_given_day()
+    {
+        $today = Carbon::now();
+        $user = $this->createUser();
+
+        $future = $this->createFuturePlanFor($user, $today, [
+            'name' => 'John Doe',
+            'email' => 'jo.do@dixie.io',
+        ]);
+
+        $futureUser =  $user->future()->applyChangesFor($today);
+        $user = $user->fresh();
+
+        $this->assertInstanceOf(User::class, $futureUser);
+        $this->assertTrue($futureUser->is($user));
+        $this->assertEquals($futureUser->getAttributes(), $user->getAttributes());
+
+        $this->assertEquals($user->name, 'John Doe');
+        $this->assertEquals($user->email, 'jo.do@dixie.io');
+        $this->assertEquals($user->bio, 'I am a developer at dixie.io');
+    }
 }

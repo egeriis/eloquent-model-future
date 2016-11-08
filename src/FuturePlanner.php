@@ -54,7 +54,7 @@ class FuturePlanner
             ->get();
     }
 
-    public function getPlansUntill(Carbon $futureDate)
+    public function getPlansUntil(Carbon $futureDate)
     {
          return $this->model->futures()
             ->where('commit_at', '<=', $futureDate)

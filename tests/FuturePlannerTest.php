@@ -84,7 +84,7 @@ class FutureTest extends TestCase
             'bio' => 'I never get to play... *sadface*',
         ], true);
 
-        $futurePlans =  $user->future()->getPlansUntill($nextWeek);
+        $futurePlans =  $user->future()->getPlansUntil($nextWeek);
 
         $this->assertInstanceOf(FutureCollection::class, $futurePlans);
         $this->assertCount(2, $futurePlans);

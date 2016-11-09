@@ -23,13 +23,13 @@ class Future extends Model
 
     protected $dates = [
         'commit_at',
-        'committed',
+        'committed_at',
         'deleted_at',
     ];
 
     protected $fillable = [
         'futureable_id', 'futureable_type',
-        'commit_at', 'data', 'committed',
+        'commit_at', 'data', 'committed_at',
     ];
 
     public function newCollection(array $models = [])
@@ -52,12 +52,12 @@ class Future extends Model
 
     public function scopeUncommitted(Builder $query)
     {
-        return $query->whereNull('committed');
+        return $query->whereNull('committed_at');
     }
 
     public function scopeCommitted(Builder $query)
     {
-        return $query->whereNotNull('committed');
+        return $query->whereNotNull('committed_at');
     }
 
     public function futureable()

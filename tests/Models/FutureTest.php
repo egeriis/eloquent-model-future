@@ -32,7 +32,7 @@ class FutureTest extends TestCase
     {
         $this->assertEquals($this->future->getDates(), [
             'commit_at',
-            'committed',
+            'committed_at',
             'deleted_at',
             'created_at',
             'updated_at',
@@ -41,14 +41,14 @@ class FutureTest extends TestCase
         // Setup dates so that they are all filled
         //
         // committed date
-        $this->future->committed = '1993-12-10';
+        $this->future->committed_at = '1993-12-10';
         $this->future->save();
 
         // deleted_at date
         $this->future->delete();
 
         $this->assertInstanceOf(Carbon::class, $this->future->commit_at);
-        $this->assertInstanceOf(Carbon::class, $this->future->committed);
+        $this->assertInstanceOf(Carbon::class, $this->future->committed_at);
         $this->assertInstanceOf(Carbon::class, $this->future->created_at);
         $this->assertInstanceOf(Carbon::class, $this->future->updated_at);
         $this->assertInstanceOf(Carbon::class, $this->future->deleted_at);

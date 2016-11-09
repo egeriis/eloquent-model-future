@@ -35,8 +35,8 @@ class HasFutureTest extends TestCase
         $this->assertTrue(
             $user->future()->see($today)->commit()
         );
-        $this->assertEquals($future1->fresh()->committed, Carbon::now());
-        $this->assertNull($future2->fresh()->committed);
+        $this->assertEquals($future1->fresh()->committed_at, Carbon::now());
+        $this->assertNull($future2->fresh()->committed_at);
     }
 }
 

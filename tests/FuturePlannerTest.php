@@ -26,7 +26,7 @@ class FuturePlannerTest extends TestCase
         $this->assertInstanceOf(Future::class, $future);
         $this->assertEquals($user->id, $future->futureable_id);
         $this->assertEquals(User::class, $future->futureable_type);
-        $this->assertNull($future->committed);
+        $this->assertNull($future->committed_at);
         $this->assertEquals($future->commit_at, $tomorrow);
         $this->assertEquals($future->data, [
             'name' => 'John Doe',
@@ -151,7 +151,7 @@ class FuturePlannerTest extends TestCase
         $future2 = $this->createFuturePlanFor($user, $tomorrow);
         $future3 = $this->createFuturePlanFor($user, $nextWeek);
 
-        $future3->committed = Carbon::now();
+        $future3->committed_at = Carbon::now();
         $future3->save();
 
         $futurePlansUntil = $user->future()->getPlansUntil($nextWeek);
@@ -171,7 +171,7 @@ class FuturePlannerTest extends TestCase
 
         $future = $this->createFuturePlanFor($user, $tomorrow);
         $future->update([
-            'committed' => Carbon::now(),
+            'committed_at' => Carbon::now(),
         ]);
 
         $hasAnyFuturePlans = $user->future()->hasAnyPlans();
@@ -185,7 +185,7 @@ class FuturePlannerTest extends TestCase
 
         $future = $this->createFuturePlanFor($user, $tomorrow);
         $future->update([
-            'committed' => Carbon::now(),
+            'committed_at' => Carbon::now(),
         ]);
 
         $hasFuturePlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);

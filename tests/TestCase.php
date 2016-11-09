@@ -34,9 +34,9 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             $table->increments('id');
             $table->integer('futureable_id');
             $table->string('futureable_type');
-            $table->timestamp('commit_at');
             $table->json('data');
-            $table->timestamp('committed')->nullable()->default(null);
+            $table->timestamp('commit_at');
+            $table->timestamp('committed_at')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
         });

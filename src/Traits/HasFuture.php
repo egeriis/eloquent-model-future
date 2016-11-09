@@ -19,7 +19,7 @@ trait HasFuture
 
     public function uncommittedFutures()
     {
-        return $this->futures()->whereNull('committed');
+        return $this->futures()->whereNull('committed_at');
     }
 
     public function future()
@@ -33,7 +33,7 @@ trait HasFuture
 
         $this->future()->getPlansFor($date)->each(function($futurePlan) use ($date) {
             $futurePlan->update([
-                'committed' => $date
+                'committed_at' => $date
             ]);
         });
 

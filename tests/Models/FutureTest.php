@@ -23,12 +23,12 @@ class FutureTest extends TestCase
         $this->future = $this->createFuturePlanFor($this->user, Carbon::now());
     }
 
-    public function test_it_casts_its_data_to_array()
+    public function testItCastsItsDataToArray()
     {
         $this->assertInternalType('array', $this->future->data);
     }
 
-    public function test_it_casts_its_dates_to_carbon_instances()
+    public function testItCastsItsDatesToCarbonInstances()
     {
         $this->assertEquals($this->future->getDates(), [
             'commit_at',
@@ -54,12 +54,12 @@ class FutureTest extends TestCase
         $this->assertInstanceOf(Carbon::class, $this->future->deleted_at);
     }
 
-    public function test_it_has_a_morph_to_relationship_called_futureable()
+    public function testItHasaMorphToRelationshipCalledFutureable()
     {
         $this->assertInstanceOf(MorphTo::class, $this->future->futureable());
     }
 
-    public function test_it_returns_a_custom_eloquent_collection()
+    public function testItReturnsACustomEloquentCollection()
     {
         $this->assertInstanceOf(FutureCollection::class, Future::all());
     }

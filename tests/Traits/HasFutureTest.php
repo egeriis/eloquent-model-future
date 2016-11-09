@@ -9,21 +9,21 @@ use Carbon\Carbon;
 
 class HasFutureTest extends TestCase
 {
-    public function test_it_defines_a_morph_many_relationship_called_futures()
+    public function testItDefinesAMorphManayRelationshipCalledFutures()
     {
         $user = $this->createUser();
 
         $this->assertInstanceOf(MorphMany::class, $user->futures());
     }
 
-    public function test_it_makes_the_user_able_to_plan_using_a_future_planner_instance()
+    public function testItMakesTheuserAbleToPlanUsingAFuturePlannerInstance()
     {
         $user = $this->createUser();
 
         $this->assertInstanceOf(FuturePlanner::class, $user->future());
     }
 
-    public function test_it_can_commit_to_a_state()
+    public function testItCanCommitToAState()
     {
         $user = $this->createUser();
         $today = Carbon::now();

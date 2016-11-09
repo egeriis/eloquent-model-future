@@ -9,7 +9,7 @@ use Dixie\LaravelModelFuture\Tests\User;
 
 class FutureCollectionTest extends TestCase
 {
-    public function test_it_is_the_default_collection_when_getting_futures()
+    public function testItIsTheDefaultCollectionWhenGettingFutures()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -22,7 +22,7 @@ class FutureCollectionTest extends TestCase
         $this->assertCount(1, $futures);
     }
 
-    public function test_it_can_show_how_the_model_was_originally()
+    public function testItCanShowHowTheModelWasOriginally()
     {
         $user = $this->createUser([
             'name' => 'Jakob Steinn',
@@ -41,7 +41,7 @@ class FutureCollectionTest extends TestCase
         });
     }
 
-    public function test_it_can_show_how_the_model_will_look_as_a_result_of_future_plans()
+    public function testItCanShowHowTheModelWillLookAsAResultOfFuturePlans()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -67,7 +67,7 @@ class FutureCollectionTest extends TestCase
         );
     }
 
-    public function test_it_can_show_the_diff_between_before_and_after()
+    public function testItCanShowTheDiffBetweenBeforeAndAfter()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();

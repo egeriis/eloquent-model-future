@@ -9,7 +9,7 @@ use Dixie\LaravelModelFuture\Models\Future;
 
 class CommitToFutureCommandTest extends TestCase
 {
-    public function test_it_commits_future_plans_for_today_when_run()
+    public function testItCommitsFuturePlansForTodayWhenRun()
     {
         $nextMonth = Carbon::now()->addMonth();
         $today = Carbon::now();

@@ -13,7 +13,7 @@ use Dixie\LaravelModelFuture\Tests\User; use Dixie\LaravelModelFuture\Collection
 class FuturePlannerTest extends TestCase
 {
 
-    public function test_it_can_plan_a_future()
+    public function testItCanPlanAFuture()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -34,7 +34,7 @@ class FuturePlannerTest extends TestCase
         ]);
     }
 
-    public function test_it_can_assert_and_return_true_if_model_has_any_future_plans()
+    public function testItCanAssertAndReturnTrueIfModelHasAnyFuturePlans()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -44,14 +44,14 @@ class FuturePlannerTest extends TestCase
         $this->assertTrue($user->future()->hasAnyPlans());
     }
 
-    public function test_it_can_assert_and_return_false_if_model_does_not_have_any_future_plans()
+    public function testItCanAssertAndReturnFalseIfModelDoesNotHaveAnyFuturePlans()
     {
         $user = $this->createUser();
 
         $this->assertFalse($user->future()->hasAnyPlans());
     }
 
-    public function test_it_can_assert_if_it_has_any_future_plans_for_given_date()
+    public function testItCanAssertWhetherItHasAnyFuturePlansForGivenDate()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -66,7 +66,7 @@ class FuturePlannerTest extends TestCase
         $this->assertFalse($hasPlansForNextWeek);
     }
 
-    public function test_it_can_assert_if_it_has_any_future_plans_untill_given_date()
+    public function testItCanAssertWhetherItHasAnyFuturePlansUntilTheGivenDate()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -86,7 +86,7 @@ class FuturePlannerTest extends TestCase
         $this->assertTrue($hasPlansForNextMonth);
     }
 
-    public function test_it_can_get_all_future_plans()
+    public function testItCanGetAllFuturePlans()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -100,7 +100,7 @@ class FuturePlannerTest extends TestCase
         $this->assertCount(2, $futurePlans);
     }
 
-    public function test_it_can_get_future_plans_for_a_given_day()
+    public function testItCanGetFuturePlansForAGivenDay()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -116,7 +116,7 @@ class FuturePlannerTest extends TestCase
         $this->assertCount(2, $futurePlans);
     }
 
-    public function test_it_can_get_all_future_plans_untill_a_given_day()
+    public function testItCanGetAllFuturePlansUntilAGivenDay()
     {
         $user = $this->createUser([
             'bio' => 'I am a developer at dixie.io',
@@ -141,7 +141,7 @@ class FuturePlannerTest extends TestCase
         $this->assertCount(2, $futurePlans);
     }
 
-    public function test_it_does_not_include_committed_plans_in_collections()
+    public function testItDoesNotIncludeCommittedFuturePlansInCollections()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -164,7 +164,7 @@ class FuturePlannerTest extends TestCase
         $this->assertEmpty($futurePlansFor);
     }
 
-    public function test_it_does_not_include_committed_future_plans_when_asserting_existence()
+    public function testItDoesNotIncludeCommittedFuturePlansWhenAssertingExistence()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -178,7 +178,7 @@ class FuturePlannerTest extends TestCase
         $this->assertFalse($hasAnyFuturePlans);
     }
 
-    public function test_it_does_not_include_committed_future_plans_when_asserting_existence_on_given_date()
+    public function testItDoesNotIncludeCommittedFuturePlansWhenAssertingExistenceOnAGivenDate()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -193,7 +193,7 @@ class FuturePlannerTest extends TestCase
 
     }
 
-    public function test_it_can_see_what_the_model_looks_like_in_the_future()
+    public function testItCanSeeWhatTheModelLooksLikeInTheFuture()
     {
         $today = Carbon::now();
         $user = $this->createUser();

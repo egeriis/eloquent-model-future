@@ -7,14 +7,14 @@ use Illuminate\Support\Collection;
 
 class FutureCollection extends EloquentCollection
 {
-    public function before()
+    public function original()
     {
         return $this->transform(function($item) {
             return $item->futureable;
         });;
     }
 
-    public function after()
+    public function result()
     {
         $model = $this->first()->futureable;
 

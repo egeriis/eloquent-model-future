@@ -27,4 +27,16 @@ trait HasFuture
         return new FuturePlanner($this);
     }
 
+    public function commit()
+    {
+        $date = Carbon::now();
+
+        $this->future()->getPlansFor($date)->each(function($futurePlan) use ($date) {
+            $futurePlan->update([
+                'committed' => $date
+            ]);
+        });
+
+        return $this->save();
+    }
 }

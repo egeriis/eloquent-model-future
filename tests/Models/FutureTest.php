@@ -10,6 +10,11 @@ use Dixie\LaravelModelFuture\Models\Future;
 
 class FutureTest extends TestCase
 {
+
+    protected $future;
+
+    protected $user;
+
     public function setUp()
     {
         parent::setUp();

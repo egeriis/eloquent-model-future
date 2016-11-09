@@ -201,7 +201,7 @@ class FuturePlannerTest extends TestCase
         ]);
 
         $futureUser =  $user->future()->see($today);
-        $user = $user->future()->getPlansFor($today)->after();
+        $user = $user->future()->getPlansFor($today)->result();
 
         $this->assertInstanceOf(User::class, $futureUser);
         $this->assertTrue($futureUser->is($user));

@@ -22,7 +22,7 @@ class FutureCollectionTest extends TestCase
         $this->assertCount(1, $futures);
     }
 
-    public function test_it_can_show_how_the_model_was_before()
+    public function test_it_can_show_how_the_model_was_originally()
     {
         $user = $this->createUser([
             'name' => 'Jakob Steinn',
@@ -32,7 +32,7 @@ class FutureCollectionTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $this->createFuturePlanFor($user, $tomorrow);
 
-        $userBeforeFutures = $user->futures->before();
+        $userBeforeFutures = $user->futures->original();
 
         $this->assertCount(1, $userBeforeFutures);
         $userBeforeFutures->each(function($userBefore) use ($user) {
@@ -41,7 +41,7 @@ class FutureCollectionTest extends TestCase
         });
     }
 
-    public function test_it_can_show_how_the_model_will_look_after()
+    public function test_it_can_show_how_the_model_will_look_as_a_result_of_future_plans()
     {
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
@@ -57,7 +57,7 @@ class FutureCollectionTest extends TestCase
         ], true);
 
         $this->assertEquals(
-            $user->futures->after()->getAttributes(),
+            $user->futures->result()->getAttributes(),
             array_merge($user->getAttributes(), [
                 'name' => $planForNextWeek->data['name'],
                 'email' => $planForNextWeek->data['email'],

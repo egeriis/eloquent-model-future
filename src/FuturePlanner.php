@@ -74,7 +74,7 @@ class FuturePlanner
 
     public function see(Carbon $futureDate)
     {
-        return $this->getPlansFor($futureDate)->after();
+        return $this->getPlansFor($futureDate)->result();
     }
 
 }

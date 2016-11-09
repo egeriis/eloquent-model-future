@@ -5,6 +5,7 @@ namespace Dixie\LaravelModelFuture\Tests\Traits;
 use Dixie\LaravelModelFuture\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Dixie\LaravelModelFuture\FuturePlanner;
+use Carbon\Carbon;
 
 class HasFutureTest extends TestCase
 {
@@ -20,6 +21,22 @@ class HasFutureTest extends TestCase
         $user = $this->createUser();
 
         $this->assertInstanceOf(FuturePlanner::class, $user->future());
+    }
+
+    public function test_it_can_commit_to_a_state()
+    {
+        $user = $this->createUser();
+        $today = Carbon::now();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future1 = $this->createFuturePlanFor($user, $today);
+        $future2 = $this->createFuturePlanFor($user, $tomorrow);
+
+        $this->assertTrue(
+            $user->future()->see($today)->commit()
+        );
+        $this->assertEquals($future1->fresh()->committed, Carbon::now());
+        $this->assertNull($future2->fresh()->committed);
     }
 }
 

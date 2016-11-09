@@ -13,7 +13,7 @@ class CommitToFutureCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'futures:schedule';
+    protected $signature = 'future:schedule';
 
     /**
      * The console command description.

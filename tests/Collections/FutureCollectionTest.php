@@ -76,14 +76,14 @@ class FutureCollectionTest extends TestCase
 
         $this->assertEquals($user->futures->resultDiff()->toArray(), [
             [
-                'name' => [
-                    'before' => $user->name,
-                    'after' => $future->data['name'],
-                ],
-                'email' => [
-                    'before' => $user->email,
-                    'after' => $future->data['email'],
-                ],
+                'before' => json_encode([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                ]),
+                'after' => json_encode([
+                    'name' => $future->data['name'],
+                    'email' => $future->data['email'],
+                ]),
                 'commit_at' => $tomorrow,
             ],
         ]);

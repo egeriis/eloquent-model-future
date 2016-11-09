@@ -11,14 +11,11 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-
         $this->commands(CommitToFutureCommand::class);
     }
 
-
     public function register()
     {
-
     }
 
 }

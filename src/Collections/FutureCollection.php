@@ -26,17 +26,14 @@ class FutureCollection extends EloquentCollection
     public function resultDiff()
     {
         return $this->map(function($item) {
-            $originalModel = $item->futureable;
 
-            $diffCollection = collect($item->data)
-                ->map(function($value, $key) use ($originalModel) {
-                    return [
-                        'before' => $originalModel->{$key},
-                        'after' => $value
-                    ];
-                });
+            $before = $item->futureable->first(array_keys($item->data));
 
-            return $diffCollection->put('commit_at', $item->commit_at);
+            return [
+                'before' => json_encode($before->toArray()),
+                'after' => json_encode($item->data),
+                'commit_at' => $item->commit_at,
+            ];
         });
     }
 }

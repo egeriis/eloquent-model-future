@@ -11,6 +11,7 @@ use Carbon\Carbon;
 class Future extends Model
 {
     use SoftDeletes;
+
     /**
      * The attributes that should be casted to native types.
      *

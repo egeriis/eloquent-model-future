@@ -71,10 +71,13 @@ class FuturePlannerTest extends TestCase
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
         $nextWeek = Carbon::now()->addWeek();
-        $nextMonth = Carbon::now()->addWeek();
+        $nextMonth = Carbon::now()->addMonth();
+        $previusMonth = Carbon::now()->subMonth();
+
 
         $future = $this->createFuturePlanFor($user, $nextWeek);
         $future = $this->createFuturePlanFor($user, $nextMonth);
+        $future = $this->createFuturePlanFor($user, $previusMonth);
 
         $hasPlansForTomorrow = $user->future()->hasAnyPlansUntil($tomorrow);
         $hasPlansForNextMonth = $user->future()->hasAnyPlansUntil($nextMonth);

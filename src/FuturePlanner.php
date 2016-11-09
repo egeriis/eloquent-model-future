@@ -72,12 +72,9 @@ class FuturePlanner
         return (bool) $this->getPlansUntil($futureDate)->count();
     }
 
-    public function applyChangesFor(Carbon $futureDate)
+    public function see(Carbon $futureDate)
     {
-        $result = $this->getPlansFor($futureDate)->after();
-        $result->save();
-
-        return $result;
+        return $this->getPlansFor($futureDate)->after();
     }
 
 }

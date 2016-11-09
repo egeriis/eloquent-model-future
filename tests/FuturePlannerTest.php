@@ -190,7 +190,7 @@ class FuturePlannerTest extends TestCase
 
     }
 
-    public function test_it_can_apply_future_plans_for_a_given_day()
+    public function test_it_can_see_what_the_model_looks_like_in_the_future()
     {
         $today = Carbon::now();
         $user = $this->createUser();
@@ -200,8 +200,8 @@ class FuturePlannerTest extends TestCase
             'email' => 'jo.do@dixie.io',
         ]);
 
-        $futureUser =  $user->future()->applyChangesFor($today);
-        $user = $user->fresh();
+        $futureUser =  $user->future()->see($today);
+        $user = $user->future()->getPlansFor($today)->after();
 
         $this->assertInstanceOf(User::class, $futureUser);
         $this->assertTrue($futureUser->is($user));

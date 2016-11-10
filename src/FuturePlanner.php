@@ -17,11 +17,11 @@ class FuturePlanner
     protected $model;
 
     /**
-     * The attributes to change in the future.
+     * A new future instance that is about to get planned.
      *
-     * @var array
+     * @var Dixie\LaravelModelFuture\Models\Future
      */
-    protected $attributes;
+    protected $newFuture;
 
     /**
      * The base query for getting futures.
@@ -39,6 +39,7 @@ class FuturePlanner
     {
         $this->model = $model;
         $this->futures = $this->model->uncommittedFutures();
+        $this->newFuture = new Future;
     }
 
     /**
@@ -50,7 +51,7 @@ class FuturePlanner
      */
     public function plan(array $attributes)
     {
-        $this->attributes = $attributes;
+        $this->newFuture->data = $attributes;
 
         return $this;
     }
@@ -64,18 +65,15 @@ class FuturePlanner
      */
     public function for(Carbon $futureDate)
     {
-        $future = new Future([
-            'data' => $this->attributes,
-            'commit_at' => $futureDate,
-        ]);
+        $this->newFuture->commit_at = $futureDate;
 
-        $future->futureable()
-            ->associate($this->model)
-            ->save();
+        $this->newFuture->futureable()->associate($this->model);
 
-        $future->creator()->associate(auth()->id());
+        $this->newFuture->creator()->associate(auth()->id());
 
-        return $future;
+        $this->newFuture->save();
+
+        return $this->newFuture;
     }
 
     /**

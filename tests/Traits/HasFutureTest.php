@@ -6,6 +6,7 @@ use Dixie\LaravelModelFuture\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Dixie\LaravelModelFuture\FuturePlanner;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class HasFutureTest extends TestCase
 {

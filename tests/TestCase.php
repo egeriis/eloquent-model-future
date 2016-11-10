@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use PHPUnit_Framework_TestCase;
 use Dixie\LaravelModelFuture\Contracts\ModelFuture;
 use Carbon\Carbon;
+use Mockery;
+use Illuminate\Support\Facades\Config;
 
 abstract class TestCase extends PHPUnit_Framework_TestCase
 {
@@ -46,6 +48,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
+        Mockery::close();
         $this->schema()->drop('users');
         $this->schema()->drop('futures');
     }
@@ -94,5 +97,4 @@ class User extends Eloquent implements ModelFuture
 {
     use \Dixie\LaravelModelFuture\Traits\HasFuture;
 }
-
 

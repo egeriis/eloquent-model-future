@@ -3,17 +3,26 @@
 namespace Dixie\LaravelModelFuture\Collections;
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
 
 class FutureCollection extends EloquentCollection
 {
+    /**
+     * Get the original model state
+     *
+     * @return Illuminate\Support\Collection
+     */
     public function original()
     {
-        return $this->transform(function($item) {
+        return $this->map(function($item) {
             return $item->futureable;
         });;
     }
 
+    /**
+     * Gets the model back with all the future data filled.
+     *
+     * @return Dixie\LaravelModelFuture\Contracts\ModelFuture
+     */
     public function result()
     {
         $model = $this->first()->futureable;
@@ -23,6 +32,11 @@ class FutureCollection extends EloquentCollection
         }, $model);
     }
 
+    /**
+     * Gets a list of all fields that would change, with both before and after.
+     *
+     * @return Illuminate\Support\Collection
+     */
     public function resultDiff()
     {
         return $this->map(function($item) {

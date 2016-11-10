@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Dixie\LaravelModelFuture\Collections\FutureCollection;
 use Dixie\LaravelModelFuture\Models\Future;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FutureTest extends TestCase
 {
@@ -59,8 +60,43 @@ class FutureTest extends TestCase
         $this->assertInstanceOf(MorphTo::class, $this->future->futureable());
     }
 
+    public function testItHasABelongsToRelationshipCalledCreator()
+    {
+        $this->assertInstanceOf(BelongsTo::class, $this->future->creator());
+    }
+
     public function testItReturnsACustomEloquentCollection()
     {
         $this->assertInstanceOf(FutureCollection::class, Future::all());
     }
+
+    public function testItHasAForDateScope()
+    {
+
+    }
+
+    public function testItHasAUntilDateScope()
+    {
+
+    }
+
+    public function testItHasAUncommittedScope()
+    {
+
+    }
+
+    public function testItHasACommittedScope()
+    {
+
+    }
 }
+
+namespace Dixie\LaravelModelFuture\Models;
+
+use Dixie\LaravelModelFuture\Tests\User;
+
+function config($args)
+{
+    return User::class;
+}
+

@@ -9,12 +9,32 @@ use Carbon\Carbon;
 
 class FuturePlanner
 {
+    /**
+     * The model under action.
+     *
+     * @var Dixie\LaravelModelFuture\Contracts\ModelFuture
+     */
     protected $model;
 
+    /**
+     * The attributes to change in the future.
+     *
+     * @var array
+     */
     protected $attributes;
 
+    /**
+     * The base query for getting futures.
+     *
+     * @var Illuminate\Database\Eloquent\Relations\MorphMany
+     */
     protected $futures;
 
+    /**
+     * Create a new FuturePlanner instance.
+     *
+     * @param ModelFuture $model
+     */
     public function __construct(ModelFuture $model)
     {
         $this->model = $model;
@@ -38,6 +58,8 @@ class FuturePlanner
         $future->futureable()
             ->associate($this->model)
             ->save();
+
+        $future->creator()->associate(auth()->id());
 
         return $future;
     }

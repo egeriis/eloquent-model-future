@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests\Models;
+namespace Dixie\LaravelModelFuture\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -10,6 +10,8 @@ use Dixie\LaravelModelFuture\Models\Future;
 use Dixie\LaravelModelFuture\Tests\TestCase;
 use Dixie\LaravelModelFuture\FuturePlan;
 use Dixie\LaravelModelFuture\Tests\User; use Dixie\LaravelModelFuture\Collections\FutureCollection; 
+use Illuminate\Support\Facades\Auth;
+
 class FuturePlannerTest extends TestCase
 {
 
@@ -32,6 +34,19 @@ class FuturePlannerTest extends TestCase
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ]);
+    }
+
+    public function testItAssociatesAuthenticatedUserAsCreator()
+    {
+        $user = $this->createUser();
+        $tomorrow = Carbon::now()->addDay();
+
+        $future = $user->future()->plan([
+            'name' => 'John Doe',
+            'email' => 'jo.do@dixie.io',
+        ])->for($tomorrow);
+
+        $this->assertNotNull($future->createe_user_id);
     }
 
     public function testItCanAssertAndReturnTrueIfModelHasAnyFuturePlans()
@@ -214,4 +229,34 @@ class FuturePlannerTest extends TestCase
         $this->assertEquals($user->email, 'jo.do@dixie.io');
         $this->assertEquals($user->bio, 'I am a developer at dixie.io');
     }
+}
+
+namespace Dixie\LaravelModelFuture;
+
+use Dixie\LaravelModelFuture\Tests\User;
+
+function auth()
+{
+    return (new class {
+        public $shouldBeUnauthenticated = false;
+
+        public function user() {
+            if($this->shouldBeUnauthenticated) {
+                return null; 
+            }
+
+            return User::create([
+                'name' => 'Jakob Steinn',
+                'email' => 'ja.st@dixie.io',
+            ]);
+        }
+
+        public function id() {
+            if($this->shouldBeUnauthenticated) {
+                return null; 
+            }
+
+            return $this->user()->id;
+        }
+    });
 }

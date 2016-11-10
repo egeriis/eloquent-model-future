@@ -84,7 +84,7 @@ $futurePlans->resultDiff()  // Shows which attributes has changed
 
 ## API Reference
 | **Class**#*methodName* | Arguments | Returns | Note |
-|:-|:-|:-|:-|
+|------------------------|-----------|---------|------|
 | **Future**#*untilDate* | Carbon | Eloquent\Builder | Query only futures scheduled between `date('now')` and the given date. This is an Eloquent scope. |
 | **Future**#*uncommitted* | - | Eloquent\Builder | Query only uncommitted futures. This is an Eloquent scope. |
 | **Future**#*committed* | - | Eloquent\Builder | Query only committed futures. This is an Eloquent scope. |

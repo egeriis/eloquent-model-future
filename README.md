@@ -38,7 +38,7 @@ $nextMonth = Carbon\Carbon::now()->addMonth();
 
 // Plan a profile change for new years eve
 $user->future()->plan([
-    'bio': 'Happy developer time. Wooh!',
+    'bio' => 'Happy developer time. Wooh!',
     'mood' => 'excited',
 ])->for($nextMonth);
 

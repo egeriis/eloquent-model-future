@@ -46,6 +46,12 @@ class CommitToFutureCommand extends Command
             ->uncommitted()
             ->get();
 
+
+        if($futures->isEmpty()) {
+            $this->outputMessage('No future plans for today.');
+            return;
+        }
+
         $futures->each(function(Future $future) use ($today) {
             $modelWithFuture = $future->futureable;
 
@@ -54,5 +60,27 @@ class CommitToFutureCommand extends Command
                 ->commit();
         });
 
+        $this->outputMessage("{$futures->count()} futures updated.");
+    }
+
+
+    /**
+     * Write a line to the commandline
+     *
+     * @return void
+     */
+    private function outputMessage($message)
+    {
+        $laravel = $this->laravel ?: false;
+
+        if( ! $laravel) {
+            return;
+        }
+
+        if( ! $laravel->runningInConsole()) {
+            return;
+        }
+
+        $this->info($message);
     }
 }

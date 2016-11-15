@@ -18,7 +18,9 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
-        $this->commands(CommitToFutureCommand::class);
+        if($this-app->runningInConsole()) {
+            $this->commands(CommitToFutureCommand::class);
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-# Laravel Model Futures
+# Eloquent Model Futures
 
 ## Give your models a nice and predictable future
 A package that lets you plan changes to your models in a simple manner.
@@ -6,12 +6,12 @@ A package that lets you plan changes to your models in a simple manner.
 ## Installation
 Require the package via composer
 ```bash
-composer require dixie/laravel-model-future
+composer require dixie/eloquent-model-future
 ```
 
 Run the package migrations to create a `futures` table, that will hold every future of your selected models.
 ```bash
-php artisan migrate --path="vendor/dixie/laravel-model-future/src/migrations"
+php artisan migrate
 ```
 
 Schedule the command to persist future plans
@@ -24,7 +24,7 @@ On your desired models use the `HasFuture` trait.
 ```php
 class User extends Model
 {
-    use Dixie\ModelFutures\HasFuture;
+    use Dixie\EloquentModelFuture\HasFuture;
 }
 ```
 
@@ -38,7 +38,7 @@ $nextMonth = Carbon\Carbon::now()->addMonth();
 
 // Plan a profile change for new years eve
 $user->future()->plan([
-    'bio': 'Happy developer time. Wooh!',
+    'bio' => 'Happy developer time. Wooh!',
     'mood' => 'excited',
 ])->for($nextMonth);
 

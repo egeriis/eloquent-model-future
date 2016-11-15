@@ -1,5 +1,5 @@
 {
-    "name": "dixieio/laravel-model-future",
+    "name": "dixieio/eloquent-model-future",
     "description": "A package that lets you plan future changes to a model.",
     "type": "library",
     "license": "GNU GPLv3",

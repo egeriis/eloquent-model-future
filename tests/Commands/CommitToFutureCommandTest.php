@@ -1,11 +1,11 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests\Commands;
+namespace Dixie\EloquentModelFuture\Tests\Commands;
 
-use Dixie\LaravelModelFuture\Tests\TestCase;
-use Dixie\LaravelModelFuture\Commands\CommitToFutureCommand;
+use Dixie\EloquentModelFuture\Tests\TestCase;
+use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;
 use Carbon\Carbon;
-use Dixie\LaravelModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\Models\Future;
 
 class CommitToFutureCommandTest extends TestCase
 {

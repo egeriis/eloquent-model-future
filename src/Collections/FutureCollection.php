@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Collections;
+namespace Dixie\EloquentModelFuture\Collections;
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
@@ -21,7 +21,7 @@ class FutureCollection extends EloquentCollection
     /**
      * Gets the model back with all the future data filled.
      *
-     * @return Dixie\LaravelModelFuture\Contracts\ModelFuture
+     * @return Dixie\EloquentModelFuture\Contracts\ModelFuture
      */
     public function result()
     {

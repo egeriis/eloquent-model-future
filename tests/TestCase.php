@@ -1,11 +1,11 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests;
+namespace Dixie\EloquentModelFuture\Tests;
 
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use PHPUnit_Framework_TestCase;
-use Dixie\LaravelModelFuture\Contracts\ModelFuture;
+use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Carbon\Carbon;
 use Mockery;
 use Illuminate\Support\Facades\Config;
@@ -95,6 +95,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
 class User extends Eloquent implements ModelFuture
 {
-    use \Dixie\LaravelModelFuture\Traits\HasFuture;
+    use \Dixie\EloquentModelFuture\Traits\HasFuture;
 }
 

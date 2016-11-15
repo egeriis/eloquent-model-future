@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Dixie\\LaravelModelFuture\\": "src/"
+            "Dixie\\EloquentModelFuture\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dixie\\LaravelModelFuture\\Tests\\": "tests/"
+            "Dixie\\EloquentModelFuture\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable"

@@ -1,10 +1,10 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests\Traits;
+namespace Dixie\EloquentModelFuture\Tests\Traits;
 
-use Dixie\LaravelModelFuture\Tests\TestCase;
+use Dixie\EloquentModelFuture\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Dixie\LaravelModelFuture\FuturePlanner;
+use Dixie\EloquentModelFuture\FuturePlanner;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dixie\LaravelModelFuture;
+namespace Dixie\EloquentModelFuture;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Dixie\LaravelModelFuture\Commands\CommitToFutureCommand;
+use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;
 
 
 class ServiceProvider extends BaseServiceProvider
@@ -18,7 +18,9 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
-        $this->commands(CommitToFutureCommand::class);
+        if($this-app->runningInConsole()) {
+            $this->commands(CommitToFutureCommand::class);
+        }
     }
 
     /**

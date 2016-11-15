@@ -1,11 +1,11 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests\Collections;
+namespace Dixie\EloquentModelFuture\Tests\Collections;
 
-use Dixie\LaravelModelFuture\Tests\TestCase;
+use Dixie\EloquentModelFuture\Tests\TestCase;
 use Carbon\Carbon;
-use Dixie\LaravelModelFuture\Collections\FutureCollection;
-use Dixie\LaravelModelFuture\Tests\User;
+use Dixie\EloquentModelFuture\Collections\FutureCollection;
+use Dixie\EloquentModelFuture\Tests\User;
 
 class FutureCollectionTest extends TestCase
 {

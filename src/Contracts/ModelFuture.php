@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Contracts;
+namespace Dixie\EloquentModelFuture\Contracts;
 
 interface ModelFuture
 {

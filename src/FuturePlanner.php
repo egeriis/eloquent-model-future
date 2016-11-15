@@ -1,10 +1,10 @@
 <?php
 
-namespace Dixie\LaravelModelFuture;
+namespace Dixie\EloquentModelFuture;
 
 use Illuminate\Database\Eloquent\Model;
-use Dixie\LaravelModelFuture\Models\Future;
-use Dixie\LaravelModelFuture\Contracts\ModelFuture;
+use Dixie\EloquentModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Carbon\Carbon;
 
 class FuturePlanner
@@ -12,14 +12,14 @@ class FuturePlanner
     /**
      * The model under action.
      *
-     * @var Dixie\LaravelModelFuture\Contracts\ModelFuture
+     * @var Dixie\EloquentModelFuture\Contracts\ModelFuture
      */
     protected $model;
 
     /**
      * A new future instance that is about to get planned.
      *
-     * @var Dixie\LaravelModelFuture\Models\Future
+     * @var Dixie\EloquentModelFuture\Models\Future
      */
     protected $newFuture;
 
@@ -47,7 +47,7 @@ class FuturePlanner
      *
      * @param array $attributes
      *
-     * @return Dixie\LaravelModelFuture\FuturePlanner
+     * @return Dixie\EloquentModelFuture\FuturePlanner
      */
     public function plan(array $attributes)
     {
@@ -61,7 +61,7 @@ class FuturePlanner
      *
      * @param Carbon $futureDate
      *
-     * @return Dixie\LaravelModelFuture\Models\Future
+     * @return Dixie\EloquentModelFuture\Models\Future
      */
     public function for(Carbon $futureDate)
     {
@@ -82,7 +82,7 @@ class FuturePlanner
      *
      * @param Carbon $futureDate
      *
-     * @return Dixie\LaravelModelFuture\Contracts\ModelFuture
+     * @return Dixie\EloquentModelFuture\Contracts\ModelFuture
      */
     public function see(Carbon $futureDate)
     {
@@ -92,7 +92,7 @@ class FuturePlanner
     /**
      * Get all future plans for a model.
      *
-     * @return Dixie\LaravelModelFuture\Collections\FutureCollection
+     * @return Dixie\EloquentModelFuture\Collections\FutureCollection
      */
     public function getPlans()
     {
@@ -104,7 +104,7 @@ class FuturePlanner
      *
      * @param Carbon $futureDate
      *
-     * @return Dixie\LaravelModelFuture\Collections\FutureCollection
+     * @return Dixie\EloquentModelFuture\Collections\FutureCollection
      */
     public function getPlansFor(Carbon $futureDate)
     {
@@ -116,7 +116,7 @@ class FuturePlanner
      *
      * @param Carbon $futureDate
      *
-     * @return Dixie\LaravelModelFuture\Collections\FutureCollection
+     * @return Dixie\EloquentModelFuture\Collections\FutureCollection
      */
     public function getPlansUntil(Carbon $futureDate)
     {

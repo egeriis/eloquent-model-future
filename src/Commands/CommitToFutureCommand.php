@@ -1,9 +1,9 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Commands;
+namespace Dixie\EloquentModelFuture\Commands;
 
 use Illuminate\Console\Command;
-use Dixie\LaravelModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\Models\Future;
 use Carbon\Carbon;
 
 class CommitToFutureCommand extends Command
@@ -53,5 +53,6 @@ class CommitToFutureCommand extends Command
                 ->see($today)
                 ->commit();
         });
+
     }
 }

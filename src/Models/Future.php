@@ -1,9 +1,9 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Models;
+namespace Dixie\EloquentModelFuture\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Dixie\LaravelModelFuture\Collections\FutureCollection;
+use Dixie\EloquentModelFuture\Collections\FutureCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
@@ -46,7 +46,7 @@ class Future extends Model
     /**
      * Override the original Eloquent collection.
      *
-     * @param Dixie\LaravelModelFuture\Collections\FutureCollection
+     * @param Dixie\EloquentModelFuture\Collections\FutureCollection
      */
     public function newCollection(array $models = [])
     {

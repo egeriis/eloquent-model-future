@@ -1,9 +1,9 @@
 <?php
 
-namespace Dixie\LaravelModelFuture;
+namespace Dixie\EloquentModelFuture;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Dixie\LaravelModelFuture\Commands\CommitToFutureCommand;
+use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;
 
 
 class ServiceProvider extends BaseServiceProvider

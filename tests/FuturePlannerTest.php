@@ -1,15 +1,15 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests;
+namespace Dixie\EloquentModelFuture\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Dixie\LaravelModelFuture\Contracts\ModelFuture;
-use Dixie\LaravelModelFuture\Models\Future;
-use Dixie\LaravelModelFuture\Tests\TestCase;
-use Dixie\LaravelModelFuture\FuturePlan;
-use Dixie\LaravelModelFuture\Tests\User; use Dixie\LaravelModelFuture\Collections\FutureCollection; 
+use Dixie\EloquentModelFuture\Contracts\ModelFuture;
+use Dixie\EloquentModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\Tests\TestCase;
+use Dixie\EloquentModelFuture\FuturePlan;
+use Dixie\EloquentModelFuture\Tests\User; use Dixie\EloquentModelFuture\Collections\FutureCollection; 
 use Illuminate\Support\Facades\Auth;
 
 class FuturePlannerTest extends TestCase
@@ -231,9 +231,9 @@ class FuturePlannerTest extends TestCase
     }
 }
 
-namespace Dixie\LaravelModelFuture;
+namespace Dixie\EloquentModelFuture;
 
-use Dixie\LaravelModelFuture\Tests\User;
+use Dixie\EloquentModelFuture\Tests\User;
 
 function auth()
 {

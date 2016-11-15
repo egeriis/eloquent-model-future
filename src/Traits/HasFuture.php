@@ -1,11 +1,11 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Traits;
+namespace Dixie\EloquentModelFuture\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Dixie\LaravelModelFuture\Models\Future;
-use Dixie\LaravelModelFuture\FuturePlanner;
+use Dixie\EloquentModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\FuturePlanner;
 
 trait HasFuture
 {
@@ -35,7 +35,7 @@ trait HasFuture
     /**
      * Start planning the future of a model
      *
-     * @return Dixie\LaravelModelFuture\FuturePlanner
+     * @return Dixie\EloquentModelFuture\FuturePlanner
      */
     public function future()
     {

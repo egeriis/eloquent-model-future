@@ -1,12 +1,12 @@
 <?php
 
-namespace Dixie\LaravelModelFuture\Tests\Models;
+namespace Dixie\EloquentModelFuture\Tests\Models;
 
-use Dixie\LaravelModelFuture\Tests\TestCase;
+use Dixie\EloquentModelFuture\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Dixie\LaravelModelFuture\Collections\FutureCollection;
-use Dixie\LaravelModelFuture\Models\Future;
+use Dixie\EloquentModelFuture\Collections\FutureCollection;
+use Dixie\EloquentModelFuture\Models\Future;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FutureTest extends TestCase
@@ -91,9 +91,9 @@ class FutureTest extends TestCase
     }
 }
 
-namespace Dixie\LaravelModelFuture\Models;
+namespace Dixie\EloquentModelFuture\Models;
 
-use Dixie\LaravelModelFuture\Tests\User;
+use Dixie\EloquentModelFuture\Tests\User;
 
 function config($args)
 {

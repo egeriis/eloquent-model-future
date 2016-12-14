@@ -9,7 +9,8 @@ use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Dixie\EloquentModelFuture\Models\Future;
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Dixie\EloquentModelFuture\FuturePlan;
-use Dixie\EloquentModelFuture\Tests\User; use Dixie\EloquentModelFuture\Collections\FutureCollection; 
+use Dixie\EloquentModelFuture\Tests\User;
+use Dixie\EloquentModelFuture\Collections\FutureCollection;
 use Illuminate\Support\Facades\Auth;
 
 class FuturePlannerTest extends TestCase
@@ -23,7 +24,7 @@ class FuturePlannerTest extends TestCase
         $future = $user->future()->plan([
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
-        ])->for($tomorrow);
+        ])->at($tomorrow);
 
         $this->assertInstanceOf(Future::class, $future);
         $this->assertEquals($user->id, $future->futureable_id);
@@ -44,7 +45,7 @@ class FuturePlannerTest extends TestCase
         $future = $user->future()->plan([
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
-        ])->for($tomorrow);
+        ])->at($tomorrow);
 
         $this->assertNotNull($future->createe_user_id);
     }
@@ -242,7 +243,7 @@ function auth()
 
         public function user() {
             if($this->shouldBeUnauthenticated) {
-                return null; 
+                return null;
             }
 
             return User::create([
@@ -253,7 +254,7 @@ function auth()
 
         public function id() {
             if($this->shouldBeUnauthenticated) {
-                return null; 
+                return null;
             }
 
             return $this->user()->id;

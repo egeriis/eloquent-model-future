@@ -63,7 +63,7 @@ class FuturePlanner
      *
      * @return Dixie\EloquentModelFuture\Models\Future
      */
-    public function for(Carbon $futureDate)
+    public function at(Carbon $futureDate)
     {
         $this->newFuture->commit_at = $futureDate;
 

@@ -56,7 +56,8 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     protected function schema()
     {
         return $this->connection()->getSchemaBuilder();
-    } 
+    }
+
     protected function connection()
     {
         return Eloquent::getConnectionResolver()->connection();
@@ -73,7 +74,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             $attributes = $data;
         }
 
-        return $model->future()->plan($attributes)->for($date);
+        return $model->future()->plan($attributes)->at($date);
     }
 
     protected function createUser(array $data = [], $shouldOverride = false)

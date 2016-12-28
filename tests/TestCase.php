@@ -63,7 +63,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'email' => 'jo.do@dixie.io',
         ]);
 
-        if($shouldOverride) {
+        if ($shouldOverride) {
             $attributes = $data;
         }
 
@@ -79,11 +79,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'birthday' => Carbon::now()->subYear(),
         ]);
 
-        if($shouldOverride) {
+        if ($shouldOverride) {
             $attributes = $data;
         }
 
         return User::create($attributes);
     }
 }
-

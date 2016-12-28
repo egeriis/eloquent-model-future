@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FutureTest extends TestCase
 {
-
     protected $future;
 
     protected $user;
@@ -72,22 +71,17 @@ class FutureTest extends TestCase
 
     public function testItHasAForDateScope()
     {
-
     }
 
     public function testItHasAUntilDateScope()
     {
-
     }
 
     public function testItHasAUncommittedScope()
     {
-
     }
 
     public function testItHasACommittedScope()
     {
-
     }
 }
-

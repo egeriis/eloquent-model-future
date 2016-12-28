@@ -40,4 +40,3 @@ class HasFutureTest extends TestCase
         $this->assertNull($future2->fresh()->committed_at);
     }
 }
-

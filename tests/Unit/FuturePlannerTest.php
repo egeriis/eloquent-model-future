@@ -205,8 +205,8 @@ class FuturePlannerTest extends TestCase
             'committed_at' => Carbon::now(),
         ]);
 
-        $hasFuturePlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
-        $this->assertFalse($hasFuturePlansForNextWeek);
+        $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
+        $this->assertFalse($hasPlansForNextWeek);
     }
 
     public function testItCanSeeWhatTheModelLooksLikeInTheFuture()

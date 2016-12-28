@@ -18,7 +18,9 @@ trait HasFuture
     {
         return $this->morphMany(
             Future::class,
-            'futures', 'futureable_type', 'futureable_id'
+            'futures',
+            'futureable_type',
+            'futureable_id'
         );
     }
 

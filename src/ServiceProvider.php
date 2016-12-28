@@ -5,7 +5,6 @@ namespace Dixie\EloquentModelFuture;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;
 
-
 class ServiceProvider extends BaseServiceProvider
 {
 
@@ -18,7 +17,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
-        if($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
             $this->commands(CommitToFutureCommand::class);
         }
     }
@@ -31,5 +30,4 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
     }
-
 }

@@ -30,7 +30,6 @@ class CommitToFutureCommand extends Command
     public function __construct()
     {
         parent::__construct();
-
     }
 
     /**
@@ -47,12 +46,12 @@ class CommitToFutureCommand extends Command
             ->get();
 
 
-        if($futures->isEmpty()) {
+        if ($futures->isEmpty()) {
             $this->outputMessage('No future plans for today.');
             return;
         }
 
-        $futures->each(function(Future $future) use ($today) {
+        $futures->each(function (Future $future) use ($today) {
             $modelWithFuture = $future->futureable;
 
             $modelWithFuture->future()
@@ -73,11 +72,11 @@ class CommitToFutureCommand extends Command
     {
         $laravel = $this->laravel ?: false;
 
-        if( ! $laravel) {
+        if (! $laravel) {
             return;
         }
 
-        if( ! $laravel->runningInConsole()) {
+        if (! $laravel->runningInConsole()) {
             return;
         }
 

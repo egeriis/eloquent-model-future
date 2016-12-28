@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Traits;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Traits;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
+<phpunit bootstrap="vendor/autoload.php"
+        backupGlobals="false"
         backupStaticAttributes="false"
-        bootstrap="tests/bootstrap.php"
         colors="true"
+        verbose="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
@@ -10,10 +11,9 @@
         stopOnError="false"
         stopOnFailure="false"
         syntaxCheck="true"
-        verbose="true"
     >
     <testsuites>
-        <testsuite name="LaravelModelFuture Test Suite">
+        <testsuite name="Dixie Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>

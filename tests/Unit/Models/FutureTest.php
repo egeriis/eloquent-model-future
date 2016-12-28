@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Models;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Models;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Carbon\Carbon;
@@ -89,14 +89,5 @@ class FutureTest extends TestCase
     {
 
     }
-}
-
-namespace Dixie\EloquentModelFuture\Models;
-
-use Dixie\EloquentModelFuture\Tests\User;
-
-function config($args)
-{
-    return User::class;
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Commands;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Commands;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;

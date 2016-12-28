@@ -56,7 +56,7 @@ class FuturePlannerTest extends TestCase
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
 
-        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $this->createFuturePlanFor($user, $tomorrow);
 
         $this->assertTrue($user->future()->hasAnyPlans());
     }
@@ -74,7 +74,7 @@ class FuturePlannerTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $nextWeek = Carbon::now()->addWeek();
 
-        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $this->createFuturePlanFor($user, $tomorrow);
 
         $hasPlansForTomorrow = $user->future()->hasAnyPlansFor($tomorrow);
         $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($nextWeek);
@@ -214,7 +214,7 @@ class FuturePlannerTest extends TestCase
         $today = Carbon::now();
         $user = $this->createUser();
 
-        $future = $this->createFuturePlanFor($user, $today, [
+        $this->createFuturePlanFor($user, $today, [
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ]);

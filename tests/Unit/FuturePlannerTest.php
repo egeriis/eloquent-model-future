@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests;
+namespace Dixie\EloquentModelFuture\Tests\Unit;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -9,9 +9,9 @@ use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Dixie\EloquentModelFuture\Models\Future;
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Dixie\EloquentModelFuture\FuturePlan;
-use Dixie\EloquentModelFuture\Tests\User;
 use Dixie\EloquentModelFuture\Collections\FutureCollection;
 use Illuminate\Support\Facades\Auth;
+use Dixie\EloquentModelFuture\Tests\Models\User;
 
 class FuturePlannerTest extends TestCase
 {
@@ -39,15 +39,17 @@ class FuturePlannerTest extends TestCase
 
     public function testItAssociatesAuthenticatedUserAsCreator()
     {
+        $authUser = $this->createUser();
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
+        Auth::login($authUser);
 
         $future = $user->future()->plan([
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ])->at($tomorrow);
 
-        $this->assertNotNull($future->createe_user_id);
+        $this->assertEquals($authUser->id, $future->createe_user_id);
     }
 
     public function testItCanAssertAndReturnTrueIfModelHasAnyFuturePlans()
@@ -232,32 +234,3 @@ class FuturePlannerTest extends TestCase
     }
 }
 
-namespace Dixie\EloquentModelFuture;
-
-use Dixie\EloquentModelFuture\Tests\User;
-
-function auth()
-{
-    return (new class {
-        public $shouldBeUnauthenticated = false;
-
-        public function user() {
-            if($this->shouldBeUnauthenticated) {
-                return null;
-            }
-
-            return User::create([
-                'name' => 'Jakob Steinn',
-                'email' => 'ja.st@dixie.io',
-            ]);
-        }
-
-        public function id() {
-            if($this->shouldBeUnauthenticated) {
-                return null;
-            }
-
-            return $this->user()->id;
-        }
-    });
-}

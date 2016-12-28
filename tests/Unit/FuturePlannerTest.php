@@ -15,7 +15,6 @@ use Dixie\EloquentModelFuture\Tests\Models\User;
 
 class FuturePlannerTest extends TestCase
 {
-
     public function testItCanPlanAFuture()
     {
         $user = $this->createUser();
@@ -208,7 +207,6 @@ class FuturePlannerTest extends TestCase
 
         $hasFuturePlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
         $this->assertFalse($hasFuturePlansForNextWeek);
-
     }
 
     public function testItCanSeeWhatTheModelLooksLikeInTheFuture()
@@ -233,4 +231,3 @@ class FuturePlannerTest extends TestCase
         $this->assertEquals($user->bio, 'I am a developer at dixie.io');
     }
 }
-

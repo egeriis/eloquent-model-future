@@ -157,5 +157,4 @@ class FuturePlanner
     {
         return (bool) $this->getPlansUntil($futureDate)->count();
     }
-
 }

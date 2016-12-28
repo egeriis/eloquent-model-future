@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 
 class User extends Model implements ModelFuture, Authenticatable
-
 {
     use \Dixie\EloquentModelFuture\Traits\HasFuture;
 

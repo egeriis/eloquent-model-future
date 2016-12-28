@@ -22,6 +22,11 @@
       <property name="exceptions" value="up" />
     </properties>
   </rule>
+  <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+    <properties>
+      <property name="ignorepattern" value="(^(set|get|test))i"/>
+    </properties>
+  </rule>
   <rule ref="rulesets/unusedcode.xml">
     <exclude name="UnusedFormalParameter" />
   </rule>

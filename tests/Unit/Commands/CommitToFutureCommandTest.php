@@ -28,7 +28,6 @@ class CommitToFutureCommandTest extends TestCase
 
         $command->handle();
 
-        $allFutures = Future::get(['id', 'committed_at']);
         $committedFutures = Future::committed()->get();
         $uncommittedFutures = Future::uncommitted()->get();
 

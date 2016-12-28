@@ -56,21 +56,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('auth.providers.users.model', User::class);
     }
 
-    protected function createFuturePlanFor(ModelFuture $model, $date, array $data = [], $shouldOverride = false)
+    protected function createFuturePlanFor(ModelFuture $model, $date, array $data = [])
     {
         $attributes = array_merge($data, [
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ]);
 
-        if ($shouldOverride) {
-            $attributes = $data;
-        }
-
         return $model->future()->plan($attributes)->at($date);
     }
 
-    protected function createUser(array $data = [], $shouldOverride = false)
+    protected function createUser(array $data = [])
     {
         $attributes = array_merge($data, [
             'name' => 'Jakob Steinn',
@@ -78,10 +74,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'bio' => 'I am a developer at dixie.io',
             'birthday' => Carbon::now()->subYear(),
         ]);
-
-        if ($shouldOverride) {
-            $attributes = $data;
-        }
 
         return User::create($attributes);
     }

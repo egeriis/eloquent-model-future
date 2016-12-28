@@ -13,9 +13,9 @@ class FutureCollection extends EloquentCollection
      */
     public function original()
     {
-        return $this->map(function($item) {
+        return $this->map(function ($item) {
             return $item->futureable;
-        });;
+        });
     }
 
     /**
@@ -27,7 +27,7 @@ class FutureCollection extends EloquentCollection
     {
         $model = $this->first()->futureable;
 
-        return $this->reduce(function($carry, $item) {
+        return $this->reduce(function ($carry, $item) {
             return $carry->forceFill($item->data);
         }, $model);
     }
@@ -39,8 +39,7 @@ class FutureCollection extends EloquentCollection
      */
     public function resultDiff()
     {
-        return $this->map(function($item) {
-
+        return $this->map(function ($item) {
             $before = $item->futureable->first(array_keys($item->data));
 
             return [

@@ -36,7 +36,7 @@ class FutureCollectionTest extends TestCase
         $userBeforeFutures = $user->futures->original();
 
         $this->assertCount(1, $userBeforeFutures);
-        $userBeforeFutures->each(function($userBefore) use ($user) {
+        $userBeforeFutures->each(function ($userBefore) use ($user) {
             $this->assertTrue($userBefore->is($user));
             $this->assertInstanceOf(ModelFuture::class, $userBefore);
         });

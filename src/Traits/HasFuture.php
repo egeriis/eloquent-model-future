@@ -17,8 +17,10 @@ trait HasFuture
     public function futures()
     {
         return $this->morphMany(
-            Future::class, 
-            'futures', 'futureable_type', 'futureable_id'
+            Future::class,
+            'futures',
+            'futureable_type',
+            'futureable_id'
         );
     }
 
@@ -49,7 +51,7 @@ trait HasFuture
      */
     public function commit()
     {
-        $this->future()->getPlansFor(Carbon::now())
+        $this->future()->getPlansUntil(Carbon::now())
             ->each([$this, 'commitFuturePlan']);
 
         return $this->save();
@@ -62,7 +64,7 @@ trait HasFuture
      */
     public function commitFuturePlan(Future $futurePlan)
     {
-        $futurePlan->committed_at = Carbon::now();;
+        $futurePlan->committed_at = Carbon::now();
 
         return $futurePlan->save();
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Commands;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Commands;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Dixie\EloquentModelFuture\Commands\CommitToFutureCommand;
@@ -11,9 +11,10 @@ class CommitToFutureCommandTest extends TestCase
 {
     public function testItCommitsFuturePlansForTodayWhenRun()
     {
-        $nextMonth = Carbon::now()->addMonth();
+        $prevMonth = Carbon::now()->subMonth();
         $today = Carbon::now();
-        $command = new CommitToFutureCommand;
+        $nextMonth = Carbon::now()->addMonth();
+
         $jakob = $this->createUser();
         $john = $this->createUser([
             'name' => 'John Doe',
@@ -21,25 +22,29 @@ class CommitToFutureCommandTest extends TestCase
             'bio' => 'I am not human.',
             'birthday' => Carbon::now()->subYear()->subMonth(),
         ]);
+        $johnny = $this->createUser([
+            'name' => 'Johnny Reimer',
+            'email' => 'jo.re@dixie.io',
+            'bio' => 'Guitar',
+            'birthday' => new Carbon('1953-04-01'),
+        ]);
 
+        $johnnysFuture = $this->createFuturePlanFor($johnny, $prevMonth);
         $jakobsFuture = $this->createFuturePlanFor($jakob, $today);
-
         $johnsFuture = $this->createFuturePlanFor($john, $nextMonth);
 
-        $command->handle();
+        (new CommitToFutureCommand)->handle();
 
-        $allFutures = Future::get(['id', 'committed_at']);
         $committedFutures = Future::committed()->get();
         $uncommittedFutures = Future::uncommitted()->get();
 
         $this->assertCount(1, $uncommittedFutures);
         $this->assertTrue(
-            $uncommittedFutures->first()->is($johnsFuture)
+            $uncommittedFutures->contains($johnsFuture)
         );
 
-        $this->assertCount(1, $committedFutures);
-        $this->assertTrue(
-            $committedFutures->first()->is($jakobsFuture)
-        );
+        $this->assertCount(2, $committedFutures);
+        $this->assertTrue($committedFutures->contains($jakobsFuture));
+        $this->assertTrue($committedFutures->contains($johnnysFuture));
     }
 }

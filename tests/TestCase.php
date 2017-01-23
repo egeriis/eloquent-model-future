@@ -2,28 +2,32 @@
 
 namespace Dixie\EloquentModelFuture\Tests;
 
-use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use PHPUnit_Framework_TestCase;
-use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Carbon\Carbon;
-use Mockery;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Schema\Blueprint;
+use Dixie\EloquentModelFuture\Tests\Models\User;
+use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 
-abstract class TestCase extends PHPUnit_Framework_TestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     public function setUp()
     {
-        Eloquent::unguard();
-        $db = new DB;
-        $db->addConnection([
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-        ]);
-        $db->bootEloquent();
-        $db->setAsGlobal();
+        parent::setUp();
 
-        $this->schema()->create('users', function ($table) {
+        $this->setupDatabase($this->app);
+    }
+
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
+    protected function setUpDatabase($app)
+    {
+        $this->loadMigrationsFrom([
+            '--database' => 'testbench',
+            '--realpath' => realpath(__DIR__.'/../migrations'),
+        ]);
+
+        // Setup dummy users
+        $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->string('name');
@@ -31,53 +35,38 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             $table->timestamp('birthday')->nullable();
             $table->timestamps();
         });
-
-        $this->schema()->create('futures', function ($table) {
-            $table->increments('id');
-            $table->integer('createe_user_id')->unsinged()->nullable();
-            $table->morphs('futureable');
-            $table->json('data');
-            $table->timestamp('commit_at');
-            $table->timestamp('committed_at')->nullable()->default(null);
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->index(['committed_at', 'commit_at'], 'committed_at_and_commit_at');
-        });
     }
 
-    public function tearDown()
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
     {
-        Mockery::close();
-        $this->schema()->drop('users');
-        $this->schema()->drop('futures');
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
+
+        $app['config']->set('auth.providers.users.model', User::class);
     }
 
-    protected function schema()
-    {
-        return $this->connection()->getSchemaBuilder();
-    }
-
-    protected function connection()
-    {
-        return Eloquent::getConnectionResolver()->connection();
-    }
-
-    protected function createFuturePlanFor(ModelFuture $model, $date, array $data = [], $shouldOverride = false)
+    protected function createFuturePlanFor(ModelFuture $model, $date, array $data = [])
     {
         $attributes = array_merge($data, [
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ]);
 
-        if($shouldOverride) {
-            $attributes = $data;
-        }
-
         return $model->future()->plan($attributes)->at($date);
     }
 
-    protected function createUser(array $data = [], $shouldOverride = false)
+    protected function createUser(array $data = [])
     {
         $attributes = array_merge($data, [
             'name' => 'Jakob Steinn',
@@ -86,16 +75,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
             'birthday' => Carbon::now()->subYear(),
         ]);
 
-        if($shouldOverride) {
-            $attributes = $data;
-        }
-
         return User::create($attributes);
     }
 }
-
-class User extends Eloquent implements ModelFuture
-{
-    use \Dixie\EloquentModelFuture\Traits\HasFuture;
-}
-

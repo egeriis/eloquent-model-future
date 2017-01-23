@@ -1,0 +1,28 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+    config:
+      rulesets: ".phpmd.xml"
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "PSR2"
+    checks:
+      PSR1 Classes ClassDeclaration MissingNamespace:
+        enabled: false
+      PSR1 Files SideEffects FoundWithSymbols:
+        enabled: false
+ratings:
+  paths:
+  - "**.php"
+exclude_paths:
+- migrations/
+

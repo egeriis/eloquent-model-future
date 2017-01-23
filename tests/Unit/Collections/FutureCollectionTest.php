@@ -1,11 +1,12 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Collections;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Collections;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Carbon\Carbon;
 use Dixie\EloquentModelFuture\Collections\FutureCollection;
 use Dixie\EloquentModelFuture\Tests\User;
+use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 
 class FutureCollectionTest extends TestCase
 {
@@ -35,9 +36,9 @@ class FutureCollectionTest extends TestCase
         $userBeforeFutures = $user->futures->original();
 
         $this->assertCount(1, $userBeforeFutures);
-        $userBeforeFutures->each(function($userBefore) use ($user) {
+        $userBeforeFutures->each(function ($userBefore) use ($user) {
             $this->assertTrue($userBefore->is($user));
-            $this->assertInstanceOf(User::class, $userBefore);
+            $this->assertInstanceOf(ModelFuture::class, $userBefore);
         });
     }
 

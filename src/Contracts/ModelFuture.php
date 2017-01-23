@@ -11,5 +11,4 @@ interface ModelFuture
      * @return Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function futures();
-
 }

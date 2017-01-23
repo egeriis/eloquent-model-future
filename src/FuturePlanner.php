@@ -86,7 +86,7 @@ class FuturePlanner
      */
     public function see(Carbon $futureDate)
     {
-        return $this->getPlansFor($futureDate)->result();
+        return $this->getPlansUntil($futureDate)->result();
     }
 
     /**
@@ -157,5 +157,4 @@ class FuturePlanner
     {
         return (bool) $this->getPlansUntil($futureDate)->count();
     }
-
 }

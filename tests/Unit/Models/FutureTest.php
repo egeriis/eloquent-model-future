@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests\Models;
+namespace Dixie\EloquentModelFuture\Tests\Unit\Models;
 
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Carbon\Carbon;
@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FutureTest extends TestCase
 {
-
     protected $future;
 
     protected $user;
@@ -72,31 +71,17 @@ class FutureTest extends TestCase
 
     public function testItHasAForDateScope()
     {
-
     }
 
     public function testItHasAUntilDateScope()
     {
-
     }
 
     public function testItHasAUncommittedScope()
     {
-
     }
 
     public function testItHasACommittedScope()
     {
-
     }
 }
-
-namespace Dixie\EloquentModelFuture\Models;
-
-use Dixie\EloquentModelFuture\Tests\User;
-
-function config($args)
-{
-    return User::class;
-}
-

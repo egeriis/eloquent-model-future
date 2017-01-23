@@ -1,6 +1,6 @@
 <?php
 
-namespace Dixie\EloquentModelFuture\Tests;
+namespace Dixie\EloquentModelFuture\Tests\Unit;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -9,13 +9,12 @@ use Dixie\EloquentModelFuture\Contracts\ModelFuture;
 use Dixie\EloquentModelFuture\Models\Future;
 use Dixie\EloquentModelFuture\Tests\TestCase;
 use Dixie\EloquentModelFuture\FuturePlan;
-use Dixie\EloquentModelFuture\Tests\User;
 use Dixie\EloquentModelFuture\Collections\FutureCollection;
 use Illuminate\Support\Facades\Auth;
+use Dixie\EloquentModelFuture\Tests\Models\User;
 
 class FuturePlannerTest extends TestCase
 {
-
     public function testItCanPlanAFuture()
     {
         $user = $this->createUser();
@@ -39,15 +38,17 @@ class FuturePlannerTest extends TestCase
 
     public function testItAssociatesAuthenticatedUserAsCreator()
     {
+        $authUser = $this->createUser();
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
+        Auth::login($authUser);
 
         $future = $user->future()->plan([
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ])->at($tomorrow);
 
-        $this->assertNotNull($future->createe_user_id);
+        $this->assertEquals($authUser->id, $future->createe_user_id);
     }
 
     public function testItCanAssertAndReturnTrueIfModelHasAnyFuturePlans()
@@ -55,7 +56,7 @@ class FuturePlannerTest extends TestCase
         $user = $this->createUser();
         $tomorrow = Carbon::now()->addDay();
 
-        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $this->createFuturePlanFor($user, $tomorrow);
 
         $this->assertTrue($user->future()->hasAnyPlans());
     }
@@ -73,13 +74,13 @@ class FuturePlannerTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $nextWeek = Carbon::now()->addWeek();
 
-        $future = $this->createFuturePlanFor($user, $tomorrow);
+        $this->createFuturePlanFor($user, $tomorrow);
 
         $hasPlansForTomorrow = $user->future()->hasAnyPlansFor($tomorrow);
         $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($nextWeek);
 
-        $this->assertTrue($hasPlansForTomorrow);
-        $this->assertFalse($hasPlansForNextWeek);
+        $this->assertTrue($hasPlansForTomorrow, 'Expected to have plans for tomorrow');
+        $this->assertFalse($hasPlansForNextWeek, 'Expected not to have plans for next week');
     }
 
     public function testItCanAssertWhetherItHasAnyFuturePlansUntilTheGivenDate()
@@ -88,12 +89,10 @@ class FuturePlannerTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $nextWeek = Carbon::now()->addWeek();
         $nextMonth = Carbon::now()->addMonth();
-        $previusMonth = Carbon::now()->subMonth();
-
+        $previousMonth = Carbon::now()->subMonth();
 
         $future = $this->createFuturePlanFor($user, $nextWeek);
         $future = $this->createFuturePlanFor($user, $nextMonth);
-        $future = $this->createFuturePlanFor($user, $previusMonth);
 
         $hasPlansForTomorrow = $user->future()->hasAnyPlansUntil($tomorrow);
         $hasPlansForNextMonth = $user->future()->hasAnyPlansUntil($nextMonth);
@@ -204,9 +203,8 @@ class FuturePlannerTest extends TestCase
             'committed_at' => Carbon::now(),
         ]);
 
-        $hasFuturePlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
-        $this->assertFalse($hasFuturePlansForNextWeek);
-
+        $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($tomorrow);
+        $this->assertFalse($hasPlansForNextWeek);
     }
 
     public function testItCanSeeWhatTheModelLooksLikeInTheFuture()
@@ -214,7 +212,7 @@ class FuturePlannerTest extends TestCase
         $today = Carbon::now();
         $user = $this->createUser();
 
-        $future = $this->createFuturePlanFor($user, $today, [
+        $this->createFuturePlanFor($user, $today, [
             'name' => 'John Doe',
             'email' => 'jo.do@dixie.io',
         ]);
@@ -230,34 +228,4 @@ class FuturePlannerTest extends TestCase
         $this->assertEquals($user->email, 'jo.do@dixie.io');
         $this->assertEquals($user->bio, 'I am a developer at dixie.io');
     }
-}
-
-namespace Dixie\EloquentModelFuture;
-
-use Dixie\EloquentModelFuture\Tests\User;
-
-function auth()
-{
-    return (new class {
-        public $shouldBeUnauthenticated = false;
-
-        public function user() {
-            if($this->shouldBeUnauthenticated) {
-                return null;
-            }
-
-            return User::create([
-                'name' => 'Jakob Steinn',
-                'email' => 'ja.st@dixie.io',
-            ]);
-        }
-
-        public function id() {
-            if($this->shouldBeUnauthenticated) {
-                return null;
-            }
-
-            return $this->user()->id;
-        }
-    });
 }

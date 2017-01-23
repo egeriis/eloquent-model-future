@@ -51,7 +51,7 @@ trait HasFuture
      */
     public function commit()
     {
-        $this->future()->getPlansFor(Carbon::now())
+        $this->future()->getPlansUntil(Carbon::now())
             ->each([$this, 'commitFuturePlan']);
 
         return $this->save();

@@ -102,10 +102,7 @@ class Future extends Model
      */
     public function scopeUntilDate(Builder $query, Carbon $date)
     {
-        $today = Carbon::now()->toDateString();
-
-        return $query->where('commit_at', '>=', $today)
-            ->where('commit_at', '<=', $date);
+        return $query->whereDate('commit_at', '<=', $date->toDateString());
     }
 
     /**

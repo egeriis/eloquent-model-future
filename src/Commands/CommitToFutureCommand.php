@@ -31,7 +31,7 @@ class CommitToFutureCommand extends Command
     {
         $today = Carbon::now();
         $futures = Future::with('futureable')
-            ->forDate($today)
+            ->untilDate($today)
             ->uncommitted()
             ->get();
 

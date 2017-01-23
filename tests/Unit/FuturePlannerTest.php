@@ -79,8 +79,8 @@ class FuturePlannerTest extends TestCase
         $hasPlansForTomorrow = $user->future()->hasAnyPlansFor($tomorrow);
         $hasPlansForNextWeek = $user->future()->hasAnyPlansFor($nextWeek);
 
-        $this->assertTrue($hasPlansForTomorrow);
-        $this->assertFalse($hasPlansForNextWeek);
+        $this->assertTrue($hasPlansForTomorrow, 'Expected to have plans for tomorrow');
+        $this->assertFalse($hasPlansForNextWeek, 'Expected not to have plans for next week');
     }
 
     public function testItCanAssertWhetherItHasAnyFuturePlansUntilTheGivenDate()
@@ -89,12 +89,10 @@ class FuturePlannerTest extends TestCase
         $tomorrow = Carbon::now()->addDay();
         $nextWeek = Carbon::now()->addWeek();
         $nextMonth = Carbon::now()->addMonth();
-        $previusMonth = Carbon::now()->subMonth();
-
+        $previousMonth = Carbon::now()->subMonth();
 
         $future = $this->createFuturePlanFor($user, $nextWeek);
         $future = $this->createFuturePlanFor($user, $nextMonth);
-        $future = $this->createFuturePlanFor($user, $previusMonth);
 
         $hasPlansForTomorrow = $user->future()->hasAnyPlansUntil($tomorrow);
         $hasPlansForNextMonth = $user->future()->hasAnyPlansUntil($nextMonth);

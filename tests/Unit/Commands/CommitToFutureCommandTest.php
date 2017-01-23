@@ -15,7 +15,6 @@ class CommitToFutureCommandTest extends TestCase
         $today = Carbon::now();
         $nextMonth = Carbon::now()->addMonth();
 
-        $command = new CommitToFutureCommand;
         $jakob = $this->createUser();
         $john = $this->createUser([
             'name' => 'John Doe',
@@ -34,7 +33,7 @@ class CommitToFutureCommandTest extends TestCase
         $jakobsFuture = $this->createFuturePlanFor($jakob, $today);
         $johnsFuture = $this->createFuturePlanFor($john, $nextMonth);
 
-        $command->handle();
+        (new CommitToFutureCommand)->handle();
 
         $committedFutures = Future::committed()->get();
         $uncommittedFutures = Future::uncommitted()->get();

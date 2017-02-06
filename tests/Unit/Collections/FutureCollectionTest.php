@@ -71,7 +71,7 @@ class FutureCollectionTest extends TestCase
     public function testItCanShowTheDiffBetweenBeforeAndAfter()
     {
         $user = $this->createUser();
-        $tomorrow = Carbon::now()->addDay();
+        $tomorrow = Carbon::today()->addDay();
 
         $future = $this->createFuturePlanFor($user, $tomorrow);
 

@@ -18,7 +18,7 @@ class FuturePlannerTest extends TestCase
     public function testItCanPlanAFuture()
     {
         $user = $this->createUser();
-        $tomorrow = Carbon::now()->addDay();
+        $tomorrow = Carbon::today()->addDay();
 
         $future = $user->future()->plan([
             'name' => 'John Doe',
@@ -159,14 +159,14 @@ class FuturePlannerTest extends TestCase
     public function testItDoesNotIncludeCommittedFuturePlansInCollections()
     {
         $user = $this->createUser();
-        $tomorrow = Carbon::now()->addDay();
-        $nextWeek = Carbon::now()->addWeek();
+        $tomorrow = Carbon::today()->addDay();
+        $nextWeek = Carbon::today()->addWeek();
 
         $future1 = $this->createFuturePlanFor($user, $tomorrow);
         $future2 = $this->createFuturePlanFor($user, $tomorrow);
         $future3 = $this->createFuturePlanFor($user, $nextWeek);
 
-        $future3->committed_at = Carbon::now();
+        $future3->committed_at = Carbon::today();
         $future3->save();
 
         $futurePlansUntil = $user->future()->getPlansUntil($nextWeek);

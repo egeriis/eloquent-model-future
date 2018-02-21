@@ -1,6 +1,6 @@
 {
     "name": "dixieio/eloquent-model-future",
-    "description": "A package that lets you plan future changes to a model.",
+    "description": "Schedule changes for Eloquent models",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "authors": [

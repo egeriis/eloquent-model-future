@@ -2,8 +2,12 @@
     "name": "dixieio/eloquent-model-future",
     "description": "A package that lets you plan future changes to a model.",
     "type": "library",
-    "license": "GNU GPLv3",
+    "license": "GPL-3.0-or-later",
     "authors": [
+        {
+            "name": "Ronni Egeriis Persson",
+            "email": "ronni@egeriis.me"
+        },
         {
             "name": "jstoone",
             "email": "jstoone@drk.sh"

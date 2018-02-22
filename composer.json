@@ -31,5 +31,12 @@
             "Dixie\\EloquentModelFuture\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dixie\\EloquentModelFuture\\ServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "stable"
 }

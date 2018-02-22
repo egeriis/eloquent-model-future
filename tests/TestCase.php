@@ -16,15 +16,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->setupDatabase($this->app);
     }
 
+    protected function getPackageProviders($app)
+    {
+        return [
+            \Dixie\EloquentModelFuture\ServiceProvider::class,
+        ];
+    }
+
     /**
      * @param \Illuminate\Foundation\Application $app
      */
     protected function setUpDatabase($app)
     {
-        $this->loadMigrationsFrom([
-            '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__.'/../migrations'),
-        ]);
+        $this->artisan('migrate');
 
         // Setup dummy users
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {

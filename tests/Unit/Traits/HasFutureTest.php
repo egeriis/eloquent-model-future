@@ -27,8 +27,8 @@ class HasFutureTest extends TestCase
     public function testItCanCommitToAState()
     {
         $user = $this->createUser();
-        $today = Carbon::now();
-        $tomorrow = Carbon::now()->addDay();
+        $today = Carbon::today();
+        $tomorrow = Carbon::today()->addDay();
 
         $future1 = $this->createFuturePlanFor($user, $today);
         $future2 = $this->createFuturePlanFor($user, $tomorrow);
@@ -36,7 +36,7 @@ class HasFutureTest extends TestCase
         $this->assertTrue(
             $user->future()->see($today)->commit()
         );
-        $this->assertEquals($future1->fresh()->committed_at, Carbon::now());
+        $this->assertEquals($future1->fresh()->committed_at, Carbon::now()->toDateTimeString());
         $this->assertNull($future2->fresh()->committed_at);
     }
 }

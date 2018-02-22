@@ -18,7 +18,7 @@ class FuturePlannerTest extends TestCase
     public function testItCanPlanAFuture()
     {
         $user = $this->createUser();
-        $tomorrow = Carbon::now()->addDay();
+        $tomorrow = Carbon::today()->addDay();
 
         $future = $user->future()->plan([
             'name' => 'John Doe',
@@ -159,24 +159,22 @@ class FuturePlannerTest extends TestCase
     public function testItDoesNotIncludeCommittedFuturePlansInCollections()
     {
         $user = $this->createUser();
-        $tomorrow = Carbon::now()->addDay();
-        $nextWeek = Carbon::now()->addWeek();
+        $tomorrow = Carbon::today()->addDay();
 
         $future1 = $this->createFuturePlanFor($user, $tomorrow);
         $future2 = $this->createFuturePlanFor($user, $tomorrow);
-        $future3 = $this->createFuturePlanFor($user, $nextWeek);
 
-        $future3->committed_at = Carbon::now();
-        $future3->save();
+        $this->assertCount(2, $user->future()->getPlansUntil($tomorrow));
 
-        $futurePlansUntil = $user->future()->getPlansUntil($nextWeek);
-        $futurePlansFor = $user->future()->getPlansFor($nextWeek);
+        $future1->committed_at = Carbon::today();
+        $future1->save();
 
-        $this->assertCount(2, $futurePlansUntil);
-        $this->assertTrue($futurePlansUntil->first()->is($future1));
-        $this->assertTrue($futurePlansUntil->last()->is($future2));
+        $this->assertCount(1, $user->future()->getPlansUntil($tomorrow));
 
-        $this->assertEmpty($futurePlansFor);
+        $future2->committed_at = Carbon::today();
+        $future2->save();
+
+        $this->assertCount(0, $user->future()->getPlansUntil($tomorrow));
     }
 
     public function testItDoesNotIncludeCommittedFuturePlansWhenAssertingExistence()

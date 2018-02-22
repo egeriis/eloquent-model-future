@@ -68,20 +68,4 @@ class FutureTest extends TestCase
     {
         $this->assertInstanceOf(FutureCollection::class, Future::all());
     }
-
-    public function testItHasAForDateScope()
-    {
-    }
-
-    public function testItHasAUntilDateScope()
-    {
-    }
-
-    public function testItHasAUncommittedScope()
-    {
-    }
-
-    public function testItHasACommittedScope()
-    {
-    }
 }
